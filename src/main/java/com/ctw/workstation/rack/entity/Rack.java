@@ -1,7 +1,7 @@
 package com.ctw.workstation.rack.entity;
 
-import com.ctw.workstation.model.AbstractModel;
-import com.ctw.workstation.model.RackStatus;
+import com.ctw.workstation.entity.AbstractModel;
+import com.ctw.workstation.entity.RackStatus;
 import com.ctw.workstation.team.entity.Team;
 import jakarta.persistence.*;
 

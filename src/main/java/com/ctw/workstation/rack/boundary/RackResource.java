@@ -1,6 +1,6 @@
 package com.ctw.workstation.rack.boundary;
 
-import com.ctw.workstation.model.RackStatus;
+import com.ctw.workstation.entity.RackStatus;
 import com.ctw.workstation.rack.entity.Rack;
 import com.ctw.workstation.rack.service.RackService;
 import jakarta.inject.Inject;

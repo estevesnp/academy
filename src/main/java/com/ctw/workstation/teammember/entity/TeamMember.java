@@ -1,6 +1,6 @@
 package com.ctw.workstation.teammember.entity;
 
-import com.ctw.workstation.model.AbstractModel;
+import com.ctw.workstation.entity.AbstractModel;
 import com.ctw.workstation.team.entity.Team;
 import jakarta.persistence.*;
 

@@ -1,4 +1,4 @@
-package com.ctw.workstation.model;
+package com.ctw.workstation.entity;
 
 public enum RackStatus {
     AVAILABLE,

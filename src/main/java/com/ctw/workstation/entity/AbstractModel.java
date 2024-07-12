@@ -1,4 +1,4 @@
-package com.ctw.workstation.model;
+package com.ctw.workstation.entity;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.GeneratedValue;

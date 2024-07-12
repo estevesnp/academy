@@ -1,7 +1,7 @@
 package com.ctw.workstation.booking.boundary;
 
 import com.ctw.workstation.booking.entity.Booking;
-import com.ctw.workstation.domain.Repository;
+import com.ctw.workstation.booking.service.BookingService;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
@@ -14,51 +14,45 @@ import java.util.UUID;
 public class BookingResource {
 
     @Inject
-    private Repository<Booking> repo;
+    BookingService service;
 
     @GET
     public List<Booking> getBookings() {
-        return repo.getAll();
+        return service.getAll();
     }
 
     @GET
     @Path("/{id}")
     public Booking getById(@PathParam("id") UUID id) {
-        Booking booking = repo.getById(id);
-
+        Booking booking = service.getById(id);
         if (booking == null) {
             throw new NotFoundException();
         }
-
-        return repo.getById(id);
+        return service.getById(id);
     }
 
     @POST
     public Booking postBooking(Booking booking) {
-        return repo.create(booking);
+        return service.create(booking);
     }
 
     @PUT
     @Path("/{id}")
     public Booking updateBooking(@PathParam("id") UUID id, Booking booking) {
-        Booking updated = repo.modify(id, booking);
-
+        Booking updated = service.modify(id, booking);
         if (updated == null) {
             throw new NotFoundException();
         }
-
         return updated;
     }
 
     @DELETE
     @Path("/{id}")
     public Booking deleteBooking(@PathParam("id") UUID id) {
-        Booking deleted = repo.remove(id);
-
+        Booking deleted = service.remove(id);
         if (deleted == null) {
             throw new NotFoundException();
         }
-
         return deleted;
     }
 }

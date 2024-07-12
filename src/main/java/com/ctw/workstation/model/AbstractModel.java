@@ -1,5 +1,6 @@
 package com.ctw.workstation.model;
 
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -8,7 +9,7 @@ import jakarta.persistence.MappedSuperclass;
 import java.util.UUID;
 
 @MappedSuperclass
-public class AbstractModel {
+public class AbstractModel extends PanacheEntityBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;

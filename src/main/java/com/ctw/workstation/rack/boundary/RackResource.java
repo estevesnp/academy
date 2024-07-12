@@ -1,8 +1,8 @@
 package com.ctw.workstation.rack.boundary;
 
-import com.ctw.workstation.domain.Repository;
 import com.ctw.workstation.model.RackStatus;
 import com.ctw.workstation.rack.entity.Rack;
+import com.ctw.workstation.rack.service.RackService;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
@@ -15,15 +15,15 @@ import java.util.UUID;
 public class RackResource {
 
     @Inject
-    Repository<Rack> repo;
+    RackService service;
 
     @GET
     public List<Rack> getRacks(@QueryParam("status") RackStatus status) {
         if (status == null) {
-            return repo.getAll();
+            return service.getAll();
         }
 
-        return repo.getAll().stream()
+        return service.getAll().stream()
                 .filter(rack -> rack.getStatus() == status)
                 .toList();
     }
@@ -31,7 +31,7 @@ public class RackResource {
     @GET
     @Path("/{id}")
     public Rack getById(@PathParam("id") UUID id) {
-        Rack rack = repo.getById(id);
+        Rack rack = service.getById(id);
 
         if (rack == null) {
             throw new NotFoundException();
@@ -42,13 +42,13 @@ public class RackResource {
 
     @POST
     public Rack postRack(Rack rack) {
-        return repo.create(rack);
+        return service.create(rack);
     }
 
     @PUT
     @Path("/{id}")
     public Rack updateRack(@PathParam("id") UUID id, Rack rack) {
-        Rack updated = repo.modify(id, rack);
+        Rack updated = service.modify(id, rack);
         if (updated == null) {
             throw new NotFoundException();
         }
@@ -59,7 +59,7 @@ public class RackResource {
     @DELETE
     @Path("/{id}")
     public Rack deleteRack(@PathParam("id") UUID id) {
-        Rack deleted = repo.remove(id);
+        Rack deleted = service.remove(id);
 
         if (deleted == null) {
             throw new NotFoundException();

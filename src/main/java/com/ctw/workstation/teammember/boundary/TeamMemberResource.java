@@ -1,7 +1,7 @@
 package com.ctw.workstation.teammember.boundary;
 
-import com.ctw.workstation.domain.Repository;
 import com.ctw.workstation.teammember.entity.TeamMember;
+import com.ctw.workstation.teammember.service.TeamMemberService;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
@@ -14,17 +14,17 @@ import java.util.UUID;
 public class TeamMemberResource {
 
     @Inject
-    private Repository<TeamMember> repo;
+    TeamMemberService service;
 
     @GET
     public List<TeamMember> getTeamMembers() {
-        return repo.getAll();
+        return service.getAll();
     }
 
     @GET
     @Path("/{id}")
     public TeamMember getById(@PathParam("id") UUID id) {
-        TeamMember teamMember = repo.getById(id);
+        TeamMember teamMember = service.getById(id);
 
         if (teamMember == null) {
             throw new NotFoundException();
@@ -35,13 +35,13 @@ public class TeamMemberResource {
 
     @POST
     public TeamMember postTeamMember(TeamMember teamMember) {
-        return repo.create(teamMember);
+        return service.create(teamMember);
     }
 
     @PUT
     @Path("/{id}")
     public TeamMember updateTeamMember(@PathParam("id") UUID id, TeamMember teamMember) {
-        TeamMember updated = repo.modify(id, teamMember);
+        TeamMember updated = service.modify(id, teamMember);
         if (updated == null) {
             throw new NotFoundException();
         }
@@ -51,7 +51,7 @@ public class TeamMemberResource {
     @DELETE
     @Path("/{id}")
     public TeamMember deleteTeamMember(@PathParam("id") UUID id) {
-        TeamMember deleted = repo.remove(id);
+        TeamMember deleted = service.remove(id);
 
         if (deleted == null) {
             throw new NotFoundException();

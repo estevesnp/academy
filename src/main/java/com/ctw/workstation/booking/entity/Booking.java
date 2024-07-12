@@ -9,9 +9,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "t_booking")
 public class Booking extends AbstractModel {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private UUID id;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "book_from", nullable = false)
     private LocalDateTime bookFrom;
@@ -26,16 +23,6 @@ public class Booking extends AbstractModel {
     private LocalDateTime modifiedAt;
     private UUID rackId;
     private UUID requesterId;
-
-    @Override
-    public UUID getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(UUID id) {
-        this.id = id;
-    }
 
     public UUID getRackId() {
         return rackId;

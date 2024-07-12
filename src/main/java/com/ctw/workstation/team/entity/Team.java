@@ -5,14 +5,10 @@ import com.ctw.workstation.domain.DefaultLocation;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
 @Table(name = "t_team")
 public class Team extends AbstractModel {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private UUID id;
     @Column(name = "name", length = 20, nullable = false)
     private String name;
     @Column(name = "product", length = 20, nullable = false)
@@ -26,16 +22,6 @@ public class Team extends AbstractModel {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "modified_at", nullable = true)
     private LocalDateTime modifiedAt;
-
-    @Override
-    public UUID getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(UUID id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

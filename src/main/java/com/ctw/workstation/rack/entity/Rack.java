@@ -11,9 +11,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "t_rack")
 public class Rack extends AbstractModel {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private UUID id;
     @Column(name = "serial_number", length = 20, nullable = false)
     private String serialNumber;
     @Enumerated(EnumType.STRING)
@@ -30,16 +27,6 @@ public class Rack extends AbstractModel {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id", updatable = false, insertable = false, nullable = false)
     private Team team;
-
-    @Override
-    public UUID getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(UUID id) {
-        this.id = id;
-    }
 
     public UUID getTeamId() {
         return teamId;

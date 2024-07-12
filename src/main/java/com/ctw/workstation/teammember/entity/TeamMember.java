@@ -10,9 +10,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "t_team_member")
 public class TeamMember extends AbstractModel {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private UUID id;
     @Column(name = "ctw_id", length = 20, nullable = false)
     private String ctwId;
     @Column(name = "name", length = 20, nullable = false)
@@ -28,16 +25,6 @@ public class TeamMember extends AbstractModel {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id", updatable = false, insertable = false, nullable = false)
     private Team team;
-
-    @Override
-    public UUID getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(UUID id) {
-        this.id = id;
-    }
 
     public UUID getTeamId() {
         return teamId;

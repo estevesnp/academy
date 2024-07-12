@@ -9,9 +9,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "t_rack_asset")
 public class RackAsset extends AbstractModel {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private UUID id;
     @Column(name = "asset_tag", length = 10, nullable = false)
     private String assetTag;
     @Column(name = "rack_id", nullable = false)
@@ -19,16 +16,6 @@ public class RackAsset extends AbstractModel {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rack_id", updatable = false, insertable = false, nullable = false)
     private Rack rack;
-
-    @Override
-    public UUID getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(UUID id) {
-        this.id = id;
-    }
 
     public UUID getRackId() {
         return rackId;

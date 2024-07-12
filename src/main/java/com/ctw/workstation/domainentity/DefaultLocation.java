@@ -1,4 +1,4 @@
-package com.ctw.workstation.entity;
+package com.ctw.workstation.domainentity;
 
 public enum DefaultLocation {
     LISBON,

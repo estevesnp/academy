@@ -1,4 +1,4 @@
-package com.ctw.workstation.booking.service;
+package com.ctw.workstation.booking.control;
 
 import com.ctw.workstation.booking.entity.Booking;
 import jakarta.enterprise.context.ApplicationScoped;

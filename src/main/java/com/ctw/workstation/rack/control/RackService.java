@@ -1,4 +1,4 @@
-package com.ctw.workstation.rack.service;
+package com.ctw.workstation.rack.control;
 
 import com.ctw.workstation.rack.entity.Rack;
 import jakarta.enterprise.context.ApplicationScoped;

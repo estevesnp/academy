@@ -1,7 +1,7 @@
 package com.ctw.workstation.teammember.boundary;
 
+import com.ctw.workstation.teammember.control.TeamMemberService;
 import com.ctw.workstation.teammember.entity.TeamMember;
-import com.ctw.workstation.teammember.service.TeamMemberService;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;

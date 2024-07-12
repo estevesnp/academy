@@ -1,7 +1,7 @@
 package com.ctw.workstation.booking.boundary;
 
+import com.ctw.workstation.booking.control.BookingService;
 import com.ctw.workstation.booking.entity.Booking;
-import com.ctw.workstation.booking.service.BookingService;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;

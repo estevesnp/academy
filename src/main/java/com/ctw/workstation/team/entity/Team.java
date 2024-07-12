@@ -1,14 +1,12 @@
 package com.ctw.workstation.team.entity;
 
-import com.ctw.workstation.entity.AbstractModel;
-import com.ctw.workstation.entity.DefaultLocation;
+import com.ctw.workstation.domainentity.AbstractTimedModel;
+import com.ctw.workstation.domainentity.DefaultLocation;
 import jakarta.persistence.*;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "t_team")
-public class Team extends AbstractModel {
+public class Team extends AbstractTimedModel {
     @Column(name = "name", length = 20, nullable = false)
     private String name;
     @Column(name = "product", length = 20, nullable = false)
@@ -16,12 +14,6 @@ public class Team extends AbstractModel {
     @Enumerated(EnumType.STRING)
     @Column(name = "default_location", nullable = false)
     private DefaultLocation defaultLocation;
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt;
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "modified_at", nullable = true)
-    private LocalDateTime modifiedAt;
 
     public String getName() {
         return name;
@@ -45,21 +37,5 @@ public class Team extends AbstractModel {
 
     public void setDefaultLocation(DefaultLocation defaultLocation) {
         this.defaultLocation = defaultLocation;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getModifiedAt() {
-        return modifiedAt;
-    }
-
-    public void setModifiedAt(LocalDateTime modifiedAt) {
-        this.modifiedAt = modifiedAt;
     }
 }

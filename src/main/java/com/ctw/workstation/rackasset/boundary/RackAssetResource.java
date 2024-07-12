@@ -1,7 +1,7 @@
 package com.ctw.workstation.rackasset.boundary;
 
+import com.ctw.workstation.rackasset.control.RackAssetService;
 import com.ctw.workstation.rackasset.entity.RackAsset;
-import com.ctw.workstation.rackasset.service.RackAssetService;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;

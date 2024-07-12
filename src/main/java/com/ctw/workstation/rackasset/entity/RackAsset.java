@@ -1,6 +1,6 @@
 package com.ctw.workstation.rackasset.entity;
 
-import com.ctw.workstation.entity.AbstractModel;
+import com.ctw.workstation.domainentity.AbstractModel;
 import com.ctw.workstation.rack.entity.Rack;
 import jakarta.persistence.*;
 

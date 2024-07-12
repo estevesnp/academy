@@ -1,6 +1,6 @@
 package com.ctw.workstation.booking.entity;
 
-import com.ctw.workstation.entity.AbstractModel;
+import com.ctw.workstation.domainentity.AbstractTimedModel;
 import com.ctw.workstation.rack.entity.Rack;
 import com.ctw.workstation.teammember.entity.TeamMember;
 import jakarta.persistence.*;
@@ -10,19 +10,13 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "t_booking")
-public class Booking extends AbstractModel {
+public class Booking extends AbstractTimedModel {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "book_from", nullable = false)
     private LocalDateTime bookFrom;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "book_to", nullable = false)
     private LocalDateTime bookTo;
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt;
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "modified_at", nullable = true)
-    private LocalDateTime modifiedAt;
     @Column(name = "rack_id", nullable = false)
     private UUID rackId;
     @ManyToOne(fetch = FetchType.LAZY)
@@ -64,22 +58,6 @@ public class Booking extends AbstractModel {
 
     public void setBookTo(LocalDateTime bookTo) {
         this.bookTo = bookTo;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getModifiedAt() {
-        return modifiedAt;
-    }
-
-    public void setModifiedAt(LocalDateTime modifiedAt) {
-        this.modifiedAt = modifiedAt;
     }
 
     public Rack getRack() {

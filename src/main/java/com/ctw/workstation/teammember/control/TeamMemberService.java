@@ -1,4 +1,4 @@
-package com.ctw.workstation.teammember.service;
+package com.ctw.workstation.teammember.control;
 
 import com.ctw.workstation.teammember.entity.TeamMember;
 import jakarta.enterprise.context.ApplicationScoped;

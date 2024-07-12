@@ -1,18 +1,31 @@
 package com.ctw.workstation.booking.entity;
 
 import com.ctw.workstation.domain.AbstractModel;
+import jakarta.persistence.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Entity
+@Table(name = "t_booking")
 public class Booking extends AbstractModel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private UUID id;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "book_from", nullable = false)
+    private LocalDateTime bookFrom;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "book_to", nullable = false)
+    private LocalDateTime bookTo;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "modified_at", nullable = true)
+    private LocalDateTime modifiedAt;
     private UUID rackId;
     private UUID requesterId;
-    private LocalDate bookFrom;
-    private LocalDate bookTo;
-    private LocalDate createdAt;
-    private LocalDate modifiedAt;
 
     @Override
     public UUID getId() {
@@ -40,35 +53,35 @@ public class Booking extends AbstractModel {
         this.requesterId = requesterId;
     }
 
-    public LocalDate getBookFrom() {
+    public LocalDateTime getBookFrom() {
         return bookFrom;
     }
 
-    public void setBookFrom(LocalDate bookFrom) {
+    public void setBookFrom(LocalDateTime bookFrom) {
         this.bookFrom = bookFrom;
     }
 
-    public LocalDate getBookTo() {
+    public LocalDateTime getBookTo() {
         return bookTo;
     }
 
-    public void setBookTo(LocalDate bookTo) {
+    public void setBookTo(LocalDateTime bookTo) {
         this.bookTo = bookTo;
     }
 
-    public LocalDate getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDate createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public LocalDate getModifiedAt() {
+    public LocalDateTime getModifiedAt() {
         return modifiedAt;
     }
 
-    public void setModifiedAt(LocalDate modifiedAt) {
+    public void setModifiedAt(LocalDateTime modifiedAt) {
         this.modifiedAt = modifiedAt;
     }
 }

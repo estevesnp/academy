@@ -1,17 +1,33 @@
 package com.ctw.workstation.teammember.entity;
 
 import com.ctw.workstation.domain.AbstractModel;
+import com.ctw.workstation.team.entity.Team;
+import jakarta.persistence.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Entity
+@Table(name = "t_team_member")
 public class TeamMember extends AbstractModel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private UUID id;
-    private UUID teamId;
+    @Column(name = "ctw_id", length = 20, nullable = false)
     private String ctwId;
+    @Column(name = "name", length = 20, nullable = false)
     private String name;
-    private LocalDate createdAt;
-    private LocalDate modifiedAt;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "modified_at", nullable = true)
+    private LocalDateTime modifiedAt;
+    @Column(name = "team_id", nullable = false)
+    private UUID teamId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "team_id", updatable = false, insertable = false, nullable = false)
+    private Team team;
 
     @Override
     public UUID getId() {
@@ -47,19 +63,27 @@ public class TeamMember extends AbstractModel {
         this.name = name;
     }
 
-    public LocalDate getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDate createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public LocalDate getModifiedAt() {
+    public LocalDateTime getModifiedAt() {
         return modifiedAt;
     }
 
-    public void setModifiedAt(LocalDate modifiedAt) {
+    public void setModifiedAt(LocalDateTime modifiedAt) {
         this.modifiedAt = modifiedAt;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 }

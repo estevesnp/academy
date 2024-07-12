@@ -1,6 +1,6 @@
 package com.ctw.workstation.booking.entity;
 
-import com.ctw.workstation.domain.AbstractModel;
+import com.ctw.workstation.model.AbstractModel;
 import com.ctw.workstation.rack.entity.Rack;
 import com.ctw.workstation.teammember.entity.TeamMember;
 import jakarta.persistence.*;

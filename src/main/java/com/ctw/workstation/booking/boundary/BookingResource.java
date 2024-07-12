@@ -3,11 +3,13 @@ package com.ctw.workstation.booking.boundary;
 import com.ctw.workstation.booking.entity.Booking;
 import com.ctw.workstation.domain.Repository;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 
 import java.util.List;
 import java.util.UUID;
 
+@Transactional
 @Path("/workstation/bookings")
 public class BookingResource {
 

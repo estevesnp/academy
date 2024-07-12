@@ -1,4 +1,4 @@
-package com.ctw.workstation.domain;
+package com.ctw.workstation.model;
 
 public enum DefaultLocation {
     LISBON,

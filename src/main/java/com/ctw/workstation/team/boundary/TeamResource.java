@@ -3,11 +3,13 @@ package com.ctw.workstation.team.boundary;
 import com.ctw.workstation.domain.Repository;
 import com.ctw.workstation.team.entity.Team;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 
 import java.util.List;
 import java.util.UUID;
 
+@Transactional
 @Path("/workstation/teams")
 public class TeamResource {
 

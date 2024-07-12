@@ -3,6 +3,6 @@ package com.ctw.workstation;
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 
 @QuarkusIntegrationTest
-class GreetingResourceIT extends GreetingResourceTest {
+class RackIT extends RackTest {
     // Execute the same tests but in packaged mode.
 }

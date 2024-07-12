@@ -1,14 +1,16 @@
 package com.ctw.workstation.rack.boundary;
 
-import com.ctw.workstation.domain.RackStatus;
 import com.ctw.workstation.domain.Repository;
+import com.ctw.workstation.model.RackStatus;
 import com.ctw.workstation.rack.entity.Rack;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 
 import java.util.List;
 import java.util.UUID;
 
+@Transactional
 @Path("/workstation/racks")
 public class RackResource {
 

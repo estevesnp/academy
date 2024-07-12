@@ -1,7 +1,7 @@
 package com.ctw.workstation.team.entity;
 
-import com.ctw.workstation.domain.AbstractModel;
-import com.ctw.workstation.domain.DefaultLocation;
+import com.ctw.workstation.model.AbstractModel;
+import com.ctw.workstation.model.DefaultLocation;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;

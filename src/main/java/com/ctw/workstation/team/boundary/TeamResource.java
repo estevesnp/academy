@@ -1,10 +1,14 @@
 package com.ctw.workstation.team.boundary;
 
+import com.ctw.workstation.exceptions.EntityNotFoundException;
 import com.ctw.workstation.team.control.TeamService;
 import com.ctw.workstation.team.entity.Team;
+import com.ctw.workstation.team.entity.TeamDTO;
+import com.ctw.workstation.team.entity.TeamMapper;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.Response;
 
 import java.util.List;
 import java.util.UUID;
@@ -17,48 +21,56 @@ public class TeamResource {
     TeamService service;
 
     @GET
-    public List<Team> getTeams() {
-        return service.getAll();
+    public List<TeamDTO> getTeams() {
+        return service.getAll().stream()
+                .map(TeamMapper::domainToDTO)
+                .toList();
     }
 
     @GET
     @Path("/{id}")
-    public Team getById(@PathParam("id") UUID id) {
-        Team team = service.getById(id);
+    public Response getById(@PathParam("id") UUID id) {
+        try {
+            Team team = service.getById(id);
+            return Response.status(200)
+                    .entity(TeamMapper.domainToDTO(team))
+                    .build();
 
-        if (team == null) {
-            throw new NotFoundException();
+        } catch (EntityNotFoundException e) {
+            return Response.status(404, e.getMessage()).build();
         }
-
-        return team;
     }
 
     @POST
-    public Team postTeam(Team team) {
-        return service.create(team);
+    public Response postTeam(TeamDTO teamDTO) {
+        Team team = service.create(TeamMapper.dtoToDomain(teamDTO));
+        return Response.status(201)
+                .entity(TeamMapper.domainToDTO(team))
+                .build();
     }
 
     @PUT
     @Path("/{id}")
-    public Team updateTeam(@PathParam("id") UUID id, Team team) {
-        Team updated = service.modify(id, team);
+    public Response updateTeam(@PathParam("id") UUID id, TeamDTO teamDTO) {
+        try {
+            Team updated = service.modify(id, TeamMapper.dtoToDomain(teamDTO));
+            return Response.status(201)
+                    .entity(TeamMapper.domainToDTO(updated))
+                    .build();
 
-        if (updated == null) {
-            throw new NotFoundException();
+        } catch (EntityNotFoundException e) {
+            return Response.status(404, e.getMessage()).build();
         }
-
-        return updated;
     }
 
     @DELETE
     @Path("/{id}")
-    public Team deleteTeam(@PathParam("id") UUID id) {
-        Team deleted = service.remove(id);
-
-        if (deleted == null) {
-            throw new NotFoundException();
+    public Response deleteTeam(@PathParam("id") UUID id) {
+        try {
+            service.remove(id);
+            return Response.status(200).build();
+        } catch (EntityNotFoundException e) {
+            return Response.status(410, e.getMessage()).build();
         }
-
-        return deleted;
     }
 }

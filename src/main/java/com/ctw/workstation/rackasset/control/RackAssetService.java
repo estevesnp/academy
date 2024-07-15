@@ -16,7 +16,7 @@ public class RackAssetService {
     public RackAsset getById(UUID id) throws EntityNotFoundException {
         RackAsset asset = RackAsset.findById(id);
         if (asset == null) {
-            throw new EntityNotFoundException("Rack not found");
+            throw new EntityNotFoundException("Rack Asset not found");
         }
         return asset;
     }
@@ -28,7 +28,7 @@ public class RackAssetService {
 
     public RackAsset modify(UUID id, RackAsset item) throws EntityNotFoundException {
         if (RackAsset.findById(id) == null) {
-            throw new EntityNotFoundException("Rack not found");
+            throw new EntityNotFoundException("Rack Asset not found");
         }
         RackAsset.persist(item);
         return item;
@@ -36,7 +36,7 @@ public class RackAssetService {
 
     public void remove(UUID id) throws EntityNotFoundException {
         if (!RackAsset.deleteById(id)) {
-            throw new EntityNotFoundException("Rack not found");
+            throw new EntityNotFoundException("Rack Asset not found");
         }
     }
 }

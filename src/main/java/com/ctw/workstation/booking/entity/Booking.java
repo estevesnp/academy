@@ -1,6 +1,6 @@
 package com.ctw.workstation.booking.entity;
 
-import com.ctw.workstation.domainentity.AbstractTimedModel;
+import com.ctw.workstation.entity.AbstractTimedEntity;
 import com.ctw.workstation.rack.entity.Rack;
 import com.ctw.workstation.teammember.entity.TeamMember;
 import jakarta.persistence.*;
@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "t_booking")
-public class Booking extends AbstractTimedModel {
+public class Booking extends AbstractTimedEntity {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "book_from", nullable = false)
     private LocalDateTime bookFrom;

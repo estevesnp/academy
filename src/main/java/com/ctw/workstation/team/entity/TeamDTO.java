@@ -1,6 +1,6 @@
 package com.ctw.workstation.team.entity;
 
-import com.ctw.workstation.domainentity.DefaultLocation;
+import com.ctw.workstation.entity.DefaultLocation;
 
 import java.util.UUID;
 

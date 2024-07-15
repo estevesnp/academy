@@ -1,11 +1,11 @@
-package com.ctw.workstation.domainentity;
+package com.ctw.workstation.entity;
 
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
 @MappedSuperclass
-public class AbstractTimedModel extends AbstractModel {
+public class AbstractTimedEntity extends AbstractEntity {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;

@@ -1,7 +1,6 @@
 package com.ctw.workstation.rack.entity;
 
-import com.ctw.workstation.domainentity.AbstractTimedModel;
-import com.ctw.workstation.domainentity.RackStatus;
+import com.ctw.workstation.entity.AbstractTimedEntity;
 import com.ctw.workstation.team.entity.Team;
 import jakarta.persistence.*;
 
@@ -9,7 +8,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "t_rack")
-public class Rack extends AbstractTimedModel {
+public class Rack extends AbstractTimedEntity {
     @Column(name = "serial_number", length = 20, nullable = false)
     private String serialNumber;
     @Enumerated(EnumType.STRING)

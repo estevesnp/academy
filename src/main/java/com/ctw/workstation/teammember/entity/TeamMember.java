@@ -1,6 +1,6 @@
 package com.ctw.workstation.teammember.entity;
 
-import com.ctw.workstation.domainentity.AbstractTimedModel;
+import com.ctw.workstation.entity.AbstractTimedEntity;
 import com.ctw.workstation.team.entity.Team;
 import jakarta.persistence.*;
 
@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "t_team_member")
-public class TeamMember extends AbstractTimedModel {
+public class TeamMember extends AbstractTimedEntity {
     @Column(name = "ctw_id", length = 20, nullable = false)
     private String ctwId;
     @Column(name = "getName", length = 20, nullable = false)

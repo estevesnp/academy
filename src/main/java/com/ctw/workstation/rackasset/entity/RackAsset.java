@@ -1,6 +1,6 @@
 package com.ctw.workstation.rackasset.entity;
 
-import com.ctw.workstation.domainentity.AbstractModel;
+import com.ctw.workstation.entity.AbstractEntity;
 import com.ctw.workstation.rack.entity.Rack;
 import jakarta.persistence.*;
 
@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "t_rack_asset")
-public class RackAsset extends AbstractModel {
+public class RackAsset extends AbstractEntity {
     @Column(name = "asset_tag", length = 10, nullable = false)
     private String assetTag;
     @Column(name = "rack_id", nullable = false)

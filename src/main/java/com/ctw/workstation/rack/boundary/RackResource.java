@@ -1,11 +1,15 @@
 package com.ctw.workstation.rack.boundary;
 
-import com.ctw.workstation.domainentity.RackStatus;
+import com.ctw.workstation.exceptions.EntityNotFoundException;
 import com.ctw.workstation.rack.control.RackService;
 import com.ctw.workstation.rack.entity.Rack;
+import com.ctw.workstation.rack.entity.RackDTO;
+import com.ctw.workstation.rack.entity.RackMapper;
+import com.ctw.workstation.rack.entity.RackStatus;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.Response;
 
 import java.util.List;
 import java.util.UUID;
@@ -18,54 +22,64 @@ public class RackResource {
     RackService service;
 
     @GET
-    public List<Rack> getRacks(@QueryParam("status") RackStatus status) {
+    public List<RackDTO> getRacks(@QueryParam("status") RackStatus status) {
         if (status == null) {
-            return service.getAll();
+            return service.getAll().stream()
+                    .map(RackMapper::domainToDTO)
+                    .toList();
         }
 
         return service.getAll().stream()
                 .filter(rack -> rack.getStatus() == status)
+                .map(RackMapper::domainToDTO)
                 .toList();
     }
 
     @GET
     @Path("/{id}")
-    public Rack getById(@PathParam("id") UUID id) {
-        Rack rack = service.getById(id);
+    public Response getById(@PathParam("id") UUID id) {
+        try {
+            Rack rack = service.getById(id);
+            return Response.status(200)
+                    .entity(RackMapper.domainToDTO(rack))
+                    .build();
 
-        if (rack == null) {
-            throw new NotFoundException();
+        } catch (EntityNotFoundException e) {
+            return Response.status(404, e.getMessage()).build();
         }
-
-        return rack;
     }
 
     @POST
-    public Rack postRack(Rack rack) {
-        return service.create(rack);
+    public Response postRack(RackDTO rackDTO) {
+        Rack rack = service.create(RackMapper.dtoToDomain(rackDTO));
+        return Response.status(201)
+                .entity(RackMapper.domainToDTO(rack))
+                .build();
     }
 
     @PUT
     @Path("/{id}")
-    public Rack updateRack(@PathParam("id") UUID id, Rack rack) {
-        Rack updated = service.modify(id, rack);
-        if (updated == null) {
-            throw new NotFoundException();
-        }
+    public Response updateRack(@PathParam("id") UUID id, RackDTO rackDTO) {
+        try {
+            Rack rack = service.modify(id, RackMapper.dtoToDomain(rackDTO));
+            return Response.status(201)
+                    .entity(RackMapper.domainToDTO(rack))
+                    .build();
 
-        return updated;
+        } catch (EntityNotFoundException e) {
+            return Response.status(404, e.getMessage()).build();
+        }
     }
 
     @DELETE
     @Path("/{id}")
-    public Rack deleteRack(@PathParam("id") UUID id) {
-        Rack deleted = service.remove(id);
-
-        if (deleted == null) {
-            throw new NotFoundException();
+    public Response deleteRack(@PathParam("id") UUID id) {
+        try {
+            service.remove(id);
+            return Response.status(200).build();
+        } catch (EntityNotFoundException e) {
+            return Response.status(410, e.getMessage()).build();
         }
-
-        return deleted;
     }
 
 }

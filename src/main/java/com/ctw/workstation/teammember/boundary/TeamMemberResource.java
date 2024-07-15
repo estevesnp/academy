@@ -1,10 +1,14 @@
 package com.ctw.workstation.teammember.boundary;
 
+import com.ctw.workstation.exceptions.EntityNotFoundException;
 import com.ctw.workstation.teammember.control.TeamMemberService;
 import com.ctw.workstation.teammember.entity.TeamMember;
+import com.ctw.workstation.teammember.entity.TeamMemberDTO;
+import com.ctw.workstation.teammember.entity.TeamMemberMapper;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.Response;
 
 import java.util.List;
 import java.util.UUID;
@@ -17,20 +21,24 @@ public class TeamMemberResource {
     TeamMemberService service;
 
     @GET
-    public List<TeamMember> getTeamMembers() {
-        return service.getAll();
+    public List<TeamMemberDTO> getTeamMembers() {
+        return service.getAll().stream()
+                .map(TeamMemberMapper::domainToDTO)
+                .toList();
     }
 
     @GET
     @Path("/{id}")
-    public TeamMember getById(@PathParam("id") UUID id) {
-        TeamMember teamMember = service.getById(id);
+    public Response getById(@PathParam("id") UUID id) {
+        try {
+            TeamMember teamMember = service.getById(id);
+            return Response.status(200)
+                    .entity(TeamMemberMapper.domainToDTO(teamMember))
+                    .build();
 
-        if (teamMember == null) {
-            throw new NotFoundException();
+        } catch (EntityNotFoundException e) {
+            return Response.status(404, e.getMessage()).build();
         }
-
-        return teamMember;
     }
 
     @POST
@@ -40,24 +48,27 @@ public class TeamMemberResource {
 
     @PUT
     @Path("/{id}")
-    public TeamMember updateTeamMember(@PathParam("id") UUID id, TeamMember teamMember) {
-        TeamMember updated = service.modify(id, teamMember);
-        if (updated == null) {
-            throw new NotFoundException();
+    public Response updateTeamMember(@PathParam("id") UUID id, TeamMemberDTO memberDTO) {
+        try {
+            TeamMember updated = service.modify(id, TeamMemberMapper.dtoToDomain(memberDTO));
+            return Response.status(200)
+                    .entity(TeamMemberMapper.domainToDTO(updated))
+                    .build();
+
+        } catch (EntityNotFoundException e) {
+            return Response.status(404, e.getMessage()).build();
         }
-        return updated;
     }
 
     @DELETE
     @Path("/{id}")
-    public TeamMember deleteTeamMember(@PathParam("id") UUID id) {
-        TeamMember deleted = service.remove(id);
-
-        if (deleted == null) {
-            throw new NotFoundException();
+    public Response deleteTeamMember(@PathParam("id") UUID id) {
+        try {
+            service.remove(id);
+            return Response.status(200).build();
+        } catch (EntityNotFoundException e) {
+            return Response.status(410, e.getMessage()).build();
         }
-
-        return deleted;
     }
 
 }

@@ -1,5 +1,6 @@
 package com.ctw.workstation.teammember.control;
 
+import com.ctw.workstation.exceptions.EntityNotFoundException;
 import com.ctw.workstation.teammember.entity.TeamMember;
 import jakarta.enterprise.context.ApplicationScoped;
 
@@ -12,8 +13,12 @@ public class TeamMemberService {
         return TeamMember.listAll();
     }
 
-    public TeamMember getById(UUID id) {
-        return TeamMember.findById(id);
+    public TeamMember getById(UUID id) throws EntityNotFoundException {
+        TeamMember member = TeamMember.findById(id);
+        if (member == null) {
+            throw new EntityNotFoundException("Team not found");
+        }
+        return member;
     }
 
     public TeamMember create(TeamMember item) {
@@ -21,22 +26,17 @@ public class TeamMemberService {
         return item;
     }
 
-    public TeamMember modify(UUID id, TeamMember item) {
-        TeamMember old = TeamMember.findById(id);
-        if (old == null) {
-            return null;
+    public TeamMember modify(UUID id, TeamMember item) throws EntityNotFoundException {
+        if (TeamMember.findById(id) == null) {
+            throw new EntityNotFoundException("Team not found");
         }
         TeamMember.persist(item);
         return item;
     }
 
-    public TeamMember remove(UUID id) {
-        TeamMember toDel = TeamMember.findById(id);
-        if (toDel == null) {
-            return null;
+    public void remove(UUID id) throws EntityNotFoundException {
+        if (!TeamMember.deleteById(id)) {
+            throw new EntityNotFoundException("Team not found");
         }
-
-        TeamMember.deleteById(id);
-        return toDel;
     }
 }

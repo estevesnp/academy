@@ -5,7 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.UUID;
 
-public record TeamDTO(@JsonProperty("id") UUID getId, @JsonProperty("name") String getName,
-                      @JsonProperty("product") String getProduct,
-                      @JsonProperty("default_location") DefaultLocation getDefaultLocation) {
+public record TeamDTO(@JsonProperty("id") UUID getId,
+                      @JsonProperty(value = "name", required = true) String getName,
+                      @JsonProperty(value = "product", required = true) String getProduct,
+                      @JsonProperty(value = "default_location", required = true) DefaultLocation getDefaultLocation) {
 }

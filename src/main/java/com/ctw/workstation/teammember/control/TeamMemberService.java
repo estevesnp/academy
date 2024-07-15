@@ -27,11 +27,14 @@ public class TeamMemberService {
     }
 
     public TeamMember modify(UUID id, TeamMember item) throws EntityNotFoundException {
-        if (TeamMember.findById(id) == null) {
+        TeamMember member = TeamMember.findById(id);
+        if (member == null) {
             throw new EntityNotFoundException("Team Member not found");
         }
-        TeamMember.persist(item);
-        return item;
+        member.setName(item.getName());
+        member.setCtwId(item.getCtwId());
+        member.setTeamId(item.getTeamId());
+        return member;
     }
 
     public void remove(UUID id) throws EntityNotFoundException {

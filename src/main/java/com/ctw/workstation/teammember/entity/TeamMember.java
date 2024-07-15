@@ -11,7 +11,7 @@ import java.util.UUID;
 public class TeamMember extends AbstractTimedEntity {
     @Column(name = "ctw_id", length = 20, nullable = false)
     private String ctwId;
-    @Column(name = "getName", length = 20, nullable = false)
+    @Column(name = "name", length = 20, nullable = false)
     private String name;
     @Column(name = "team_id", nullable = false)
     private UUID teamId;

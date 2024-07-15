@@ -7,9 +7,9 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "t_team")
 public class Team extends AbstractTimedEntity {
-    @Column(name = "getName", length = 20, nullable = false)
+    @Column(name = "name", length = 20, nullable = false)
     private String name;
-    @Column(name = "getProduct", length = 20, nullable = false)
+    @Column(name = "product", length = 20, nullable = false)
     private String product;
     @Enumerated(EnumType.STRING)
     @Column(name = "default_location", nullable = false)

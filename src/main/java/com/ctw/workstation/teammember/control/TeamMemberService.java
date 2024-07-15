@@ -16,7 +16,7 @@ public class TeamMemberService {
     public TeamMember getById(UUID id) throws EntityNotFoundException {
         TeamMember member = TeamMember.findById(id);
         if (member == null) {
-            throw new EntityNotFoundException("Team not found");
+            throw new EntityNotFoundException("Team Member not found");
         }
         return member;
     }
@@ -28,7 +28,7 @@ public class TeamMemberService {
 
     public TeamMember modify(UUID id, TeamMember item) throws EntityNotFoundException {
         if (TeamMember.findById(id) == null) {
-            throw new EntityNotFoundException("Team not found");
+            throw new EntityNotFoundException("Team Member not found");
         }
         TeamMember.persist(item);
         return item;
@@ -36,7 +36,7 @@ public class TeamMemberService {
 
     public void remove(UUID id) throws EntityNotFoundException {
         if (!TeamMember.deleteById(id)) {
-            throw new EntityNotFoundException("Team not found");
+            throw new EntityNotFoundException("Team Member not found");
         }
     }
 }

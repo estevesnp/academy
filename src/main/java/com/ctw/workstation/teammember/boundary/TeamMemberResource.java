@@ -42,8 +42,11 @@ public class TeamMemberResource {
     }
 
     @POST
-    public TeamMember postTeamMember(TeamMember teamMember) {
-        return service.create(teamMember);
+    public Response postTeamMember(TeamMemberDTO teamMemberDTO) {
+        TeamMember teamMember = service.create(TeamMemberMapper.dtoToDomain(teamMemberDTO));
+        return Response.status(201)
+                .entity(TeamMemberMapper.domainToDTO(teamMember))
+                .build();
     }
 
     @PUT

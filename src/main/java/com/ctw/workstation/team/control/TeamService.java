@@ -27,11 +27,14 @@ public class TeamService {
     }
 
     public Team modify(UUID id, Team item) throws EntityNotFoundException {
-        if (Team.findById(id) == null) {
+        Team team = Team.findById(id);
+        if (team == null) {
             throw new EntityNotFoundException("Team not found");
         }
-        Team.persist(item);
-        return item;
+        team.setName(item.getName());
+        team.setProduct(item.getProduct());
+        team.setDefaultLocation(item.getDefaultLocation());
+        return team;
     }
 
     public void remove(UUID id) throws EntityNotFoundException {

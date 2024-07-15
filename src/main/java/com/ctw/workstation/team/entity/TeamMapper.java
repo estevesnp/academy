@@ -5,6 +5,7 @@ public class TeamMapper {
         Team team = new Team();
 
         team.setId(dto.getId());
+        team.setName(dto.getName());
         team.setProduct(dto.getProduct());
         team.setDefaultLocation(dto.getDefaultLocation());
 

@@ -1,5 +1,6 @@
 package com.ctw.workstation.rackasset.control;
 
+import com.ctw.workstation.exceptions.EntityNotFoundException;
 import com.ctw.workstation.rackasset.entity.RackAsset;
 import jakarta.enterprise.context.ApplicationScoped;
 
@@ -12,8 +13,12 @@ public class RackAssetService {
         return RackAsset.listAll();
     }
 
-    public RackAsset getById(UUID id) {
-        return RackAsset.findById(id);
+    public RackAsset getById(UUID id) throws EntityNotFoundException {
+        RackAsset asset = RackAsset.findById(id);
+        if (asset == null) {
+            throw new EntityNotFoundException("Rack not found");
+        }
+        return asset;
     }
 
     public RackAsset create(RackAsset item) {
@@ -21,22 +26,17 @@ public class RackAssetService {
         return item;
     }
 
-    public RackAsset modify(UUID id, RackAsset item) {
-        RackAsset old = RackAsset.findById(id);
-        if (old == null) {
-            return null;
+    public RackAsset modify(UUID id, RackAsset item) throws EntityNotFoundException {
+        if (RackAsset.findById(id) == null) {
+            throw new EntityNotFoundException("Rack not found");
         }
         RackAsset.persist(item);
         return item;
     }
 
-    public RackAsset remove(UUID id) {
-        RackAsset toDel = RackAsset.findById(id);
-        if (toDel == null) {
-            return null;
+    public void remove(UUID id) throws EntityNotFoundException {
+        if (!RackAsset.deleteById(id)) {
+            throw new EntityNotFoundException("Rack not found");
         }
-
-        RackAsset.deleteById(id);
-        return toDel;
     }
 }

@@ -35,10 +35,8 @@ public class RackService {
     }
 
     public void remove(UUID id) throws EntityNotFoundException {
-        if (Rack.findById(id) == null) {
+        if (!Rack.deleteById(id)) {
             throw new EntityNotFoundException("Rack not found");
         }
-
-        Rack.deleteById(id);
     }
 }

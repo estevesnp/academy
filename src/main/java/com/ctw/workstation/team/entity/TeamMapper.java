@@ -5,8 +5,6 @@ public class TeamMapper {
         Team team = new Team();
 
         team.setId(dto.getId());
-        team.setCreatedAt(dto.getCreatedAt());
-        team.setModifiedAt(dto.getModifiedAt());
         team.setProduct(dto.getProduct());
         team.setDefaultLocation(dto.getDefaultLocation());
 
@@ -14,8 +12,7 @@ public class TeamMapper {
     }
 
     public static TeamDTO domainToDTO(Team team) {
-        return new TeamDTO(team.getId(), team.getCreatedAt(),
-                team.getModifiedAt(), team.getName(),
+        return new TeamDTO(team.getId(), team.getName(),
                 team.getProduct(), team.getDefaultLocation());
     }
 }

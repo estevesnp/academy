@@ -5,8 +5,6 @@ public class TeamMemberMapper {
         TeamMember member = new TeamMember();
 
         member.setId(dto.getId());
-        member.setCreatedAt(dto.getCreatedAt());
-        member.setModifiedAt(dto.getModifiedAt());
         member.setCtwId(dto.getCtwId());
         member.setName(dto.getName());
         member.setTeamId(dto.getTeamId());
@@ -15,8 +13,7 @@ public class TeamMemberMapper {
     }
 
     public static TeamMemberDTO domainToDTO(TeamMember member) {
-        return new TeamMemberDTO(member.getId(), member.getCreatedAt(),
-                member.getModifiedAt(), member.getCtwId(),
+        return new TeamMemberDTO(member.getId(), member.getCtwId(),
                 member.getName(), member.getTeamId());
     }
 }

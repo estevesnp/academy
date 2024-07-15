@@ -5,8 +5,6 @@ public class BookingMapper {
         Booking book = new Booking();
 
         book.setId(dto.getId());
-        book.setCreatedAt(dto.getCreatedAt());
-        book.setModifiedAt(dto.getModifiedAt());
         book.setBookFrom(dto.getBookFrom());
         book.setBookTo(dto.getBookTo());
         book.setRackId(dto.getRackId());
@@ -16,8 +14,8 @@ public class BookingMapper {
     }
 
     public static BookingDTO domainToDTO(Booking book) {
-        return new BookingDTO(book.getId(), book.getCreatedAt(),
-                book.getModifiedAt(), book.getBookFrom(),
-                book.getBookTo(), book.getRackId(), book.getRequesterId());
+        return new BookingDTO(book.getId(), book.getBookFrom(),
+                book.getBookTo(), book.getRackId(),
+                book.getRequesterId());
     }
 }

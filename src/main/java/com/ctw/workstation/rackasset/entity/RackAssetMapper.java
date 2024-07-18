@@ -6,7 +6,7 @@ public class RackAssetMapper {
 
         asset.setId(dto.getId());
         asset.setAssetTag(dto.getAssetTag());
-        asset.setRackId(dto.getId());
+        asset.setRackId(dto.getRackId());
 
         return asset;
     }

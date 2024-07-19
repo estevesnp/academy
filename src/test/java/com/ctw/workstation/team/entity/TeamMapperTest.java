@@ -44,9 +44,9 @@ class TeamMapperTest {
         TeamDTO dto = TeamMapper.domainToDTO(team);
 
 
-        assertEquals(id, dto.getId(), "Verifying id is properly set");
-        assertEquals(name, dto.getName(), "Verifying name is properly set");
-        assertEquals(product, dto.getProduct(), "Verifying product is properly set");
-        assertEquals(defaultLocation, dto.getDefaultLocation(), "Verifying defaultLocation is properly set");
+        assertEquals(id, dto.id(), "Verifying id is properly set");
+        assertEquals(name, dto.name(), "Verifying name is properly set");
+        assertEquals(product, dto.product(), "Verifying product is properly set");
+        assertEquals(defaultLocation, dto.defaultLocation(), "Verifying defaultLocation is properly set");
     }
 }

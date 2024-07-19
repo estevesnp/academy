@@ -4,10 +4,10 @@ public class TeamMapper {
     public static Team dtoToDomain(TeamDTO dto) {
         Team team = new Team();
 
-        team.setId(dto.getId());
-        team.setName(dto.getName());
-        team.setProduct(dto.getProduct());
-        team.setDefaultLocation(dto.getDefaultLocation());
+        team.setId(dto.id());
+        team.setName(dto.name());
+        team.setProduct(dto.product());
+        team.setDefaultLocation(dto.defaultLocation());
 
         return team;
     }

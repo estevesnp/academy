@@ -1,20 +1,26 @@
 package com.ctw.workstation.booking.control;
 
+import com.ctw.workstation.booking.boundary.BookingRepository;
 import com.ctw.workstation.booking.entity.Booking;
 import com.ctw.workstation.exceptions.EntityNotFoundException;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
 import java.util.List;
 import java.util.UUID;
 
 @ApplicationScoped
 public class BookingService {
+
+    @Inject
+    BookingRepository repo;
+
     public List<Booking> getAll() {
-        return Booking.listAll();
+        return repo.listAll();
     }
 
     public Booking getById(UUID id) throws EntityNotFoundException {
-        Booking booking = Booking.findById(id);
+        Booking booking = repo.findById(id);
         if (booking == null) {
             throw new EntityNotFoundException("Booking not found");
         }
@@ -22,20 +28,24 @@ public class BookingService {
     }
 
     public Booking create(Booking item) {
-        Booking.persist(item);
+        repo.persist(item);
         return item;
     }
 
     public Booking modify(UUID id, Booking item) throws EntityNotFoundException {
-        if (Booking.findById(id) == null) {
+        Booking booking = repo.findById(id);
+        if (booking == null) {
             throw new EntityNotFoundException("Booking not found");
         }
-        Booking.persist(item);
-        return item;
+        booking.setBookFrom(item.getBookFrom());
+        booking.setBookTo(item.getBookTo());
+        booking.setRackId(item.getRackId());
+        booking.setRequesterId(item.getRequesterId());
+        return booking;
     }
 
     public void remove(UUID id) throws EntityNotFoundException {
-        if (!Booking.deleteById(id)) {
+        if (!repo.deleteById(id)) {
             throw new EntityNotFoundException("Booking not found");
         }
     }

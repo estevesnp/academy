@@ -1,20 +1,26 @@
 package com.ctw.workstation.rackasset.control;
 
 import com.ctw.workstation.exceptions.EntityNotFoundException;
+import com.ctw.workstation.rackasset.boundary.RackAssetRepository;
 import com.ctw.workstation.rackasset.entity.RackAsset;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
 import java.util.List;
 import java.util.UUID;
 
 @ApplicationScoped
 public class RackAssetService {
+
+    @Inject
+    RackAssetRepository repo;
+
     public List<RackAsset> getAll() {
-        return RackAsset.listAll();
+        return repo.listAll();
     }
 
     public RackAsset getById(UUID id) throws EntityNotFoundException {
-        RackAsset asset = RackAsset.findById(id);
+        RackAsset asset = repo.findById(id);
         if (asset == null) {
             throw new EntityNotFoundException("Rack Asset not found");
         }
@@ -22,20 +28,23 @@ public class RackAssetService {
     }
 
     public RackAsset create(RackAsset item) {
-        RackAsset.persist(item);
+        repo.persist(item);
         return item;
     }
 
     public RackAsset modify(UUID id, RackAsset item) throws EntityNotFoundException {
-        if (RackAsset.findById(id) == null) {
+        RackAsset asset = repo.findById(id);
+        if (asset == null) {
             throw new EntityNotFoundException("Rack Asset not found");
         }
-        RackAsset.persist(item);
-        return item;
+
+        asset.setAssetTag(item.getAssetTag());
+        asset.setRackId(item.getRackId());
+        return asset;
     }
 
     public void remove(UUID id) throws EntityNotFoundException {
-        if (!RackAsset.deleteById(id)) {
+        if (!repo.deleteById(id)) {
             throw new EntityNotFoundException("Rack Asset not found");
         }
     }

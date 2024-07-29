@@ -10,6 +10,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.TestProfile;
 import io.restassured.common.mapper.TypeRef;
 import io.restassured.http.ContentType;
+import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,6 +26,9 @@ import static org.hamcrest.Matchers.equalTo;
 @TestProfile(CommonProfile.class)
 @TestHTTPEndpoint(TeamResource.class)
 class TeamResourceTest {
+
+    @Inject
+    TeamRepository repo;
 
     @Test
     void teamGetTeams() {
@@ -132,17 +136,17 @@ class TeamResourceTest {
 
     @Transactional
     void clean() {
-        Team.deleteAll();
+        repo.deleteAll();
     }
 
     @Transactional
     void setup() {
-        buildTeamsNull().forEach(team -> Team.persist(team));
+        buildTeamsNull().forEach(team -> repo.persist(team));
     }
 
     @Transactional
     UUID postTeam(Team team) {
-        Team.persist(team);
+        repo.persist(team);
         return team.getId();
     }
 

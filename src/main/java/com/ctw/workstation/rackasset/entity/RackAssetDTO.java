@@ -1,10 +1,10 @@
 package com.ctw.workstation.rackasset.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.UUID;
 
-public record RackAssetDTO(@JsonProperty("id") UUID getId,
-                           @JsonProperty(value = "asset_tag", required = true) String getAssetTag,
-                           @JsonProperty(value = "rack_id", required = true) UUID getRackId) {
+public record RackAssetDTO(UUID getId,
+                           @NotNull String getAssetTag,
+                           @NotNull UUID getRackId) {
 }

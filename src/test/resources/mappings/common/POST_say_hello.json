@@ -1,6 +1,0 @@
-{
-  "request": {
-    "method": "POST",
-    "url": "/external/hello"
-  }
-}

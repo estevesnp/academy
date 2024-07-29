@@ -1,10 +1,10 @@
 package com.ctw.workstation.rackasset.control;
 
-import com.ctw.workstation.exceptions.EntityNotFoundException;
 import com.ctw.workstation.rackasset.boundary.RackAssetRepository;
 import com.ctw.workstation.rackasset.entity.RackAsset;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.persistence.EntityNotFoundException;
 
 import java.util.List;
 import java.util.UUID;
@@ -19,7 +19,7 @@ public class RackAssetService {
         return repo.listAll();
     }
 
-    public RackAsset getById(UUID id) throws EntityNotFoundException {
+    public RackAsset getById(UUID id) {
         RackAsset asset = repo.findById(id);
         if (asset == null) {
             throw new EntityNotFoundException("Rack Asset not found");
@@ -32,7 +32,7 @@ public class RackAssetService {
         return item;
     }
 
-    public RackAsset modify(UUID id, RackAsset item) throws EntityNotFoundException {
+    public RackAsset modify(UUID id, RackAsset item) {
         RackAsset asset = repo.findById(id);
         if (asset == null) {
             throw new EntityNotFoundException("Rack Asset not found");
@@ -43,7 +43,7 @@ public class RackAssetService {
         return asset;
     }
 
-    public void remove(UUID id) throws EntityNotFoundException {
+    public void remove(UUID id) {
         if (!repo.deleteById(id)) {
             throw new EntityNotFoundException("Rack Asset not found");
         }

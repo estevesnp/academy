@@ -2,9 +2,9 @@ package com.ctw.workstation.booking.control;
 
 import com.ctw.workstation.booking.boundary.BookingRepository;
 import com.ctw.workstation.booking.entity.Booking;
-import com.ctw.workstation.exceptions.EntityNotFoundException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.persistence.EntityNotFoundException;
 
 import java.util.List;
 import java.util.UUID;
@@ -19,7 +19,7 @@ public class BookingService {
         return repo.listAll();
     }
 
-    public Booking getById(UUID id) throws EntityNotFoundException {
+    public Booking getById(UUID id) {
         Booking booking = repo.findById(id);
         if (booking == null) {
             throw new EntityNotFoundException("Booking not found");
@@ -32,7 +32,7 @@ public class BookingService {
         return item;
     }
 
-    public Booking modify(UUID id, Booking item) throws EntityNotFoundException {
+    public Booking modify(UUID id, Booking item) {
         Booking booking = repo.findById(id);
         if (booking == null) {
             throw new EntityNotFoundException("Booking not found");
@@ -44,7 +44,7 @@ public class BookingService {
         return booking;
     }
 
-    public void remove(UUID id) throws EntityNotFoundException {
+    public void remove(UUID id) {
         if (!repo.deleteById(id)) {
             throw new EntityNotFoundException("Booking not found");
         }

@@ -1,10 +1,10 @@
 package com.ctw.workstation.teammember.control;
 
-import com.ctw.workstation.exceptions.EntityNotFoundException;
 import com.ctw.workstation.teammember.boundary.TeamMemberRepository;
 import com.ctw.workstation.teammember.entity.TeamMember;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.persistence.EntityNotFoundException;
 
 import java.util.List;
 import java.util.UUID;
@@ -19,7 +19,7 @@ public class TeamMemberService {
         return repo.listAll();
     }
 
-    public TeamMember getById(UUID id) throws EntityNotFoundException {
+    public TeamMember getById(UUID id) {
         TeamMember member = repo.findById(id);
         if (member == null) {
             throw new EntityNotFoundException("Team Member not found");

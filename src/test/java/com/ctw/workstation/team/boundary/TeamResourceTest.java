@@ -47,8 +47,6 @@ class TeamResourceTest {
 
     @Test
     void teamGetById() {
-
-
         String name = "my-team";
         String product = "my-product";
         DefaultLocation location = DefaultLocation.LISBON;
@@ -61,7 +59,7 @@ class TeamResourceTest {
                 .body("id", equalTo(id.toString())).and()
                 .body("name", equalTo(name)).and()
                 .body("product", equalTo(product)).and()
-                .body("default_location", equalTo(location.toString()));
+                .body("defaultLocation", equalTo(location.toString()));
     }
 
     @Test
@@ -86,7 +84,7 @@ class TeamResourceTest {
                 .assertThat()
                 .body("name", equalTo(name)).and()
                 .body("product", equalTo(product)).and()
-                .body("default_location", equalTo(location.toString()));
+                .body("defaultLocation", equalTo(location.toString()));
     }
 
     @Test
@@ -108,7 +106,7 @@ class TeamResourceTest {
                 .body("id", equalTo(id.toString())).and()
                 .body("name", equalTo(name)).and()
                 .body("product", equalTo(product)).and()
-                .body("default_location", equalTo(location.toString()));
+                .body("defaultLocation", equalTo(location.toString()));
     }
 
     @Test

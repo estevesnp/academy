@@ -1,10 +1,10 @@
 package com.ctw.workstation.team.control;
 
-import com.ctw.workstation.exceptions.EntityNotFoundException;
 import com.ctw.workstation.team.boundary.TeamRepository;
 import com.ctw.workstation.team.entity.Team;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.persistence.EntityNotFoundException;
 
 import java.util.List;
 import java.util.UUID;
@@ -19,7 +19,7 @@ public class TeamService {
         return repo.listAll();
     }
 
-    public Team getById(UUID id) throws EntityNotFoundException {
+    public Team getById(UUID id) {
         Team team = repo.findById(id);
         if (team == null) {
             throw new EntityNotFoundException("Team not found");
@@ -32,7 +32,7 @@ public class TeamService {
         return item;
     }
 
-    public Team modify(UUID id, Team item) throws EntityNotFoundException {
+    public Team modify(UUID id, Team item) {
         Team team = repo.findById(id);
         if (team == null) {
             throw new EntityNotFoundException("Team not found");
@@ -43,7 +43,7 @@ public class TeamService {
         return team;
     }
 
-    public void remove(UUID id) throws EntityNotFoundException {
+    public void remove(UUID id) {
         if (!repo.deleteById(id)) {
             throw new EntityNotFoundException("Team not found");
         }

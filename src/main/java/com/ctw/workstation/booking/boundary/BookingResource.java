@@ -4,9 +4,9 @@ import com.ctw.workstation.booking.control.BookingService;
 import com.ctw.workstation.booking.entity.Booking;
 import com.ctw.workstation.booking.entity.BookingDTO;
 import com.ctw.workstation.booking.entity.BookingMapper;
-import com.ctw.workstation.exceptions.EntityNotFoundException;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
 
@@ -30,19 +30,14 @@ public class BookingResource {
     @GET
     @Path("/{id}")
     public Response getById(@PathParam("id") UUID id) {
-        try {
-            Booking booking = service.getById(id);
-            return Response.status(200)
-                    .entity(BookingMapper.domainToDTO(booking))
-                    .build();
-
-        } catch (EntityNotFoundException e) {
-            return Response.status(404, e.getMessage()).build();
-        }
+        Booking booking = service.getById(id);
+        return Response.status(200)
+                .entity(BookingMapper.domainToDTO(booking))
+                .build();
     }
 
     @POST
-    public Response postBooking(BookingDTO bookingDTO) {
+    public Response postBooking(@Valid BookingDTO bookingDTO) {
         Booking booking = service.create(BookingMapper.dtoToDomain(bookingDTO));
         return Response.status(201)
                 .entity(BookingMapper.domainToDTO(booking))
@@ -51,26 +46,17 @@ public class BookingResource {
 
     @PUT
     @Path("/{id}")
-    public Response updateBooking(@PathParam("id") UUID id, BookingDTO bookingDTO) {
-        try {
-            Booking updated = service.modify(id, BookingMapper.dtoToDomain(bookingDTO));
-            return Response.status(201)
-                    .entity(BookingMapper.domainToDTO(updated))
-                    .build();
-
-        } catch (EntityNotFoundException e) {
-            return Response.status(404, e.getMessage()).build();
-        }
+    public Response updateBooking(@PathParam("id") UUID id, @Valid BookingDTO bookingDTO) {
+        Booking updated = service.modify(id, BookingMapper.dtoToDomain(bookingDTO));
+        return Response.status(201)
+                .entity(BookingMapper.domainToDTO(updated))
+                .build();
     }
 
     @DELETE
     @Path("/{id}")
     public Response deleteBooking(@PathParam("id") UUID id) {
-        try {
-            service.remove(id);
-            return Response.status(200).build();
-        } catch (EntityNotFoundException e) {
-            return Response.status(404, e.getMessage()).build();
-        }
+        service.remove(id);
+        return Response.status(200).build();
     }
 }

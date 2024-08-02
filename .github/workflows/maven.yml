@@ -34,3 +34,6 @@ jobs:
 
     - name: Create Docker Image
       uses: estevesnp/academy/.github/actions/docker_build@master
+      with:
+        dockerfile_path: 'src/main/docker/Dockerfile.jvm'
+        image_name: 'academy'

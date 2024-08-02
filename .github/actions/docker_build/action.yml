@@ -14,7 +14,8 @@ inputs:
 runs:
   using: composite
   steps:
-    - run: |
+    - name: Setting ENV vars
+      run: |
 
         echo "DOCKER_PATH=${{ inputs.dockerfile_path }}" >> $GITHUB_ENV
         echo "IMAGE=${{ inputs.image_name }}" >> $GITHUB_ENV
@@ -24,9 +25,8 @@ runs:
         else
             echo "TAG=${{ inputs.tag_name }}" >> $GITHUB_ENV
         fi
+      shell: bash
 
-        echo build . --file $DOCKER_PATH --tag "$IMAGE:$TAG" 
-
-        docker build . --file $DOCKER_PATH --tag "$IMAGE:$TAG" 
-        docker images
+    - name: Building Image
+      run: docker build . --file $DOCKER_PATH --tag "$IMAGE:$TAG" 
       shell: bash

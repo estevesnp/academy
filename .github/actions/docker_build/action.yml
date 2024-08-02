@@ -28,4 +28,3 @@ runs:
         docker build . --file $DOCKER_PATH --tag "$IMAGE:$TAG" 
         docker images
       shell: bash
-      temp: 

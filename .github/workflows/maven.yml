@@ -30,7 +30,7 @@ jobs:
         cache: maven
 
     - name: Build with Maven
-      uses: estevesnp/academy/.github/workflows/maven_build@master
+      uses: estevesnp/academy/.github/actions/maven_build@master
 
     - name: Create Docker Image
       run: docker build . --file src/main/docker/Dockerfile.jvm --tag academy:$(date +%s) && docker image

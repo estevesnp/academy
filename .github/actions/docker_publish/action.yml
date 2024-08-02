@@ -24,6 +24,6 @@ runs:
     - name: Publishing Image
       shell: bash
       run: |
-        docker image tag $IMAGE/$TAG $DOCKERHUB_USERNAME/$IMAGE/$TAG
-        docker push $DOCKERHUB_USERNAME/$IMAGE/$TAG
+        docker image tag $IMAGE:$TAG $DOCKERHUB_USERNAME/$IMAGE:$TAG
+        docker push $DOCKERHUB_USERNAME/$IMAGE:$TAG
         

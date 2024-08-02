@@ -19,10 +19,10 @@ runs:
         echo "DOCKER_PATH=${{ inputs.dockerfile_path }}" >> $GITHUB_ENV
         echo "IMAGE=${{ inputs.image_name }}" >> $GITHUB_ENV
 
-        if [ -z "${{ inputs.{{tag_name}} }}" ]; then
+        if [ -z "${{ inputs.tag_name }}" ]; then
             echo "TAG=$(date +%s)" >> $GITHUB_ENV
         else
-            echo "TAG=${{ inputs.{{tag_name}} }}" >> $GITHUB_ENV
+            echo "TAG=${{ inputs.tag_name }}" >> $GITHUB_ENV
         fi
 
         docker build . --file $DOCKER_PATH --tag "$IMAGE:$TAG" 

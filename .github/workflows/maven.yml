@@ -30,7 +30,7 @@ jobs:
         cache: maven
 
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      uses: estevesnp/academy/.github/actions/maven_build@master
 
     - name: Create Docker Image
       run: docker build . --file src/main/docker/Dockerfile.jvm --tag academy:$(date +%s)

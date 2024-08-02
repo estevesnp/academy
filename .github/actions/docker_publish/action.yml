@@ -1,28 +1,29 @@
 name: Publish Docker Image
 description: Publish Docker Image in Dockerhub
 inputs:
+  dockerhub_username:
+    description: "Dockerhub Username"
+    required: true
   image_name:
-    description: "Full Image Name"
+    description: "Image Name"
+    required: true
+  tag_name:
+    description: "Tag Name"
     required: true
 runs:
   using: composite
   steps:
 
-    - name: Login to Docker
-      uses: docker/login-action@v3
-      with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
-
     - name: Setting ENV vars
       shell: bash
       run: |
-        echo "DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}" >> $GITHUB_ENV
-        echo "DOCKER_IMAGE=${{ inputs.image_name }}" >> $GITHUB_ENV
+        echo "DOCKERHUB_USERNAME=${{ inputs.dockerhub_username }}" >> $GITHUB_ENV
+        echo "IMAGE=${{ inputs.image_name }}" >> $GITHUB_ENV
+        echo "TAG=${{ inputs.tag_name }}" >> $GITHUB_ENV
 
     - name: Publishing Image
       shell: bash
       run: |
-        docker image tag $DOCKER_IMAGE $DOCKERHUB_USERNAME/$DOCKER_IMAGE
-        docker push $DOCKERHUB_USERNAME/$DOCKER_IMAGE
+        docker image tag $IMAGE/$TAG $DOCKERHUB_USERNAME/$IMAGE/$TAG
+        docker push $DOCKERHUB_USERNAME/$IMAGE/$TAG
         

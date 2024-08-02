@@ -37,3 +37,8 @@ jobs:
       with:
         dockerfile_path: 'src/main/docker/Dockerfile.jvm'
         image_name: 'academy'
+
+    - name: Publish Docker Image
+      uses: estevesnp/academy/.github/actions/docker_publish@master
+      with:
+        image_name: ${{ env.IMAGE }}/${{ env.TAG }}

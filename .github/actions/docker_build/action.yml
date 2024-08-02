@@ -28,4 +28,6 @@ runs:
 
     - name: Building Image
       shell: bash
-      run: docker build . --file $DOCKER_PATH --tag $IMAGE:$TAG && docker images
+      run: |
+        docker build . --file $DOCKER_PATH --tag $IMAGE:$TAG 
+        docker images | grep $IMAGE

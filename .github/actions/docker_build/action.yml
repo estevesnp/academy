@@ -16,8 +16,8 @@ runs:
   steps:
     - run: |
 
-        echo "DOCKER_PATH=${{ inputs.{{dockerfile_path}} }}" >> $GITHUB_ENV
-        echo "IMAGE=${{ inputs.{{image_name}} }}" >> $GITHUB_ENV
+        echo "DOCKER_PATH=${{ inputs.dockerfile_path }}" >> $GITHUB_ENV
+        echo "IMAGE=${{ inputs.image_name }}" >> $GITHUB_ENV
 
         if [ -z "${{ inputs.{{tag_name}} }}" ]; then
             echo "TAG=$(date +%s)" >> $GITHUB_ENV
@@ -28,4 +28,4 @@ runs:
         docker build . --file $DOCKER_PATH --tag "$IMAGE:$TAG" 
         docker images
       shell: bash
-      temp: src/main/docker/Dockerfile.jvm
+      temp: 
